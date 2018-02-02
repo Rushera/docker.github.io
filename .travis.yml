@@ -1,0 +1,15 @@
+sudo: true
+dist: trusty
+
+env:
+  - DOCKER_IMG=docker.github.io:${TRAVIS_BRANCH}
+
+jobs:
+  include:
+    - stage: build docker image
+      script:
+      - docker login -u="${DOCKER_USERNAME}" -p="${DOCKER_PASSWORD}"
+      - docker build -t ${DOCKER_USERNAME}/${DOCKER_IMG} .
+      - docker images
+      - docker push ${DOCKER_USERNAME}/${DOCKER_IMG}
+      - docker logout
