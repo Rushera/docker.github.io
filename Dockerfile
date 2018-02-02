@@ -67,8 +67,10 @@ COPY --from=docs/docker.github.io:nginx-onbuild /etc/nginx/conf.d/default.conf /
 
 COPY --from=builder ${TARGET} ${TARGET}
 
-# Replace google cdn
-RUN for i in `find ${TARGET} -name "*.html"`; do sed -i "s/googleapis.com/lug.ustc.edu.cn/g" ${i}; done
+# Delete google cdn
+RUN for i in `find ${TARGET} -name "*.html"`; \
+    do sed -i -E "s/^.+googleapis\.com.+$/<div><\/div>/g" ${i}; \
+    done
 
 # Serve the site (target), which is now all static HTML
 CMD echo -e "Docker docs are viewable at:\nhttp://0.0.0.0:4000"; exec nginx -g 'daemon off;'
