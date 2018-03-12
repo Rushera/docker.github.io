@@ -41,6 +41,8 @@ function navClicked(sourceLink)
 }
 
 var outputHorzTabs = new Array();
+outputHorzTabs.push('<a href="/catalog">Registry</a></li>\n');
+outputHorzTabs.push('<a href="/files">Files</a></li>\n');
 var outputLetNav = new Array();
 var totalTopics = 0;
 var currentSection;
